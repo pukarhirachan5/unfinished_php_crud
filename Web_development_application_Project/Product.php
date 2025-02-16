@@ -44,7 +44,7 @@ $result = $conn->query($query);
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="Product.css".css>
+    <link rel="stylesheet" href="Product.css">
     <title>Irrigation hub</title>
 </head>
 <body>
@@ -87,20 +87,26 @@ $result = $conn->query($query);
         </div>
     </nav>
 
-<div class="container mt-4">
-    <h2>Available Products</h2>
+    <div class="container mt-4">
+    <h2 class="text-center mb-4">Available Products</h2>
     <div class="row">
         <?php while ($row = $result->fetch_assoc()): ?>
             <div class="col-md-3 mb-4">
-                <div class="card text-center p-3" style="background-color: #D9D9D9;">
-                    <img src="../Admin/uploads/<?= htmlspecialchars($row['image']) ?>" class="img-fluid p-3" alt="<?= htmlspecialchars($row['name']) ?>">
-                    <h6><a href="product-detail.php?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['name']) ?></a></h6>
-                    <p>Price: Rs. <?= number_format($row['price'], 2) ?></p>
+                <div class="card product-card text-center">
+                    <img src="../Admin/uploads/<?= htmlspecialchars($row['image']) ?>" class="product-img" alt="<?= htmlspecialchars($row['name']) ?>">
+                    <div class="card-body">
+                        <h6 class="product-title">
+                            <a href="product-detail.php?id=<?= $row['id'] ?>" class="product-link"><?= htmlspecialchars($row['name']) ?></a>
+                        </h6>
+                        <p class="product-price">Rs. <?= number_format($row['price'], 2) ?></p>
+                        <a href="product-detail.php?id=<?= $row['id'] ?>" class="btn btn-success btn-sm">View Details</a>
+                    </div>
                 </div>
             </div>
         <?php endwhile; ?>
     </div>
 </div>
+
     <footer id="main-footer">
         <p>© 2023 Irrigation Hub. All rights reserved.</p>
     </footer>

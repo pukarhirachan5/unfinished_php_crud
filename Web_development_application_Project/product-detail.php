@@ -3,7 +3,6 @@ session_start();
 include 'config/db.php'; // Database connection
 include '../Admin/db.php'; // Database connection for admin side
 
-
 // Check if 'id' is set in the URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Invalid product ID.");
@@ -33,6 +32,7 @@ $product = $result->fetch_assoc();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($product['name']) ?> - Irrigation Hub</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Product.css"> <!-- Custom CSS -->
 </head>
 <body>
 
@@ -40,12 +40,12 @@ $product = $result->fetch_assoc();
     <div class="row">
         <!-- Product Image -->
         <div class="col-md-6">
-            <img src="../Admin/uploads/<?= htmlspecialchars($product['image']) ?>" class="img-fluid" alt="<?= htmlspecialchars($product['name']) ?>">
+            <img src="../Admin/uploads/<?= htmlspecialchars($product['image']) ?>" class="product-detail-image" alt="<?= htmlspecialchars($product['name']) ?>">
         </div>
         
         <!-- Product Details -->
         <div class="col-md-6">
-            <h2><?= htmlspecialchars($product['name']) ?></h2>
+            <h2 class="product-detail-title"><?= htmlspecialchars($product['name']) ?></h2>
             <p><strong>Price:</strong> Rs. <?= number_format($product['price'], 2) ?></p>
             <p><strong>Description:</strong> <?= nl2br(htmlspecialchars($product['description'])) ?></p>
             
@@ -54,7 +54,7 @@ $product = $result->fetch_assoc();
                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']) ?>">
                 <input type="hidden" name="product_price" value="<?= $product['price'] ?>">
-                <a href="Product.php" class="btn btn-success btn-lg">Buy Now</a>
+                <button type="submit" class="btn btn-success product-detail-buy-now-btn">Buy Now</button>
             </form>
         </div>
     </div>
